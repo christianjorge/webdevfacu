@@ -1,0 +1,135 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Memória</title>
+    <style>
+    .imgs{
+        width: 120px;
+        height: 120px;
+    }
+    </style>
+    <script type="text/javascript">
+        var ult = 0;
+        var penul = 0;
+        var cartavirada = 0;
+
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function preencheTable() {
+            ult = 0;
+            penul = 0;
+            cartavirada = 0;
+            var sorteio = [];
+            var col = 1;
+            var table = document.getElementById("maintable");
+            var conteudo = '';
+            document.getElementById("texto").innerHTML = 'Faça sua Jogada!';
+            document.getElementById("btstart").innerHTML = 'Reiniciar';
+
+            while(sorteio.length < 24){
+                var aleatorio = getRandomIntInclusive(1,24);
+
+                if(!sorteio.includes(aleatorio)){
+                    sorteio.push(aleatorio);
+                    if(col == 1){
+                        conteudo += '<tr>';
+                    }
+                    conteudo += '<td>' +
+                        '<button id="bt'+aleatorio+'" onclick="checkImg('+aleatorio+')">' +
+                        '<img class="imgs" id="frente'+aleatorio+'" src="imagens/frente.jpg">' +
+                        '<img class="imgs" id="img'+aleatorio+'" src="imagens/'+aleatorio+'.jpg" style="display:none;">' +
+                        '</button>' +
+                        '</td>'
+                    if(col == 6){
+                        conteudo += '</tr>';
+                        col = 1;
+                    }else{
+                        col++;
+                    }
+                }
+
+                table.innerHTML = conteudo;
+            }
+        }
+
+        function errou(){
+            document.getElementById('img'+ult).style.display = "none";
+            document.getElementById('frente'+ult).style.display = "inline";
+            document.getElementById('img'+penul).style.display = "none";
+            document.getElementById('frente'+penul).style.display = "inline";
+            ult = 0;
+            penul = 0;
+            cartavirada = 0;
+            document.getElementById("texto").innerHTML = 'Tente novamente!';
+            document.getElementById('texto').style.color = "red";
+        }
+        function acertou(){
+            document.getElementById('bt'+ult).disabled = true;
+            document.getElementById('bt'+penul).disabled = true;
+            ult = 0;
+            penul = 0;
+            cartavirada = 0;
+            document.getElementById("texto").innerHTML = 'Parabéns!!';
+            document.getElementById('texto').style.color = "green";
+        }
+
+        function checkImg(num){
+            if(ult == num || penul == num){
+                alert('Escolha outra carta!');
+            }else{
+                if(cartavirada == 2){
+                    document.getElementById("texto").innerHTML = 'Espera desesperado!';
+                    document.getElementById('texto').style.color = "red";
+                }else if(cartavirada == 0){
+                    document.getElementById('img'+num).style.display = "inline";
+                    document.getElementById('frente'+num).style.display = "none";
+                    penul = num;
+                    cartavirada = 1;
+                } else if(cartavirada == 1){
+                    cartavirada = 2;
+                    document.getElementById('img'+num).style.display = "inline";
+                    document.getElementById('frente'+num).style.display = "none";
+                    ult = num;
+                    document.getElementById("texto").innerHTML = 'Analisando...';
+                    document.getElementById('texto').style.color = "blue";
+
+                    setTimeout(() => {
+                        if(num%2 == 0){ //par = subtrai um
+                            if(ult-1 == penul){
+                                acertou();
+                            } else {
+                                errou();
+                            }
+                        } else { //impar = soma um
+                            if(ult+1 == penul){
+                                acertou();
+                            } else {
+                                errou();
+                            }
+                        }
+
+                    }, 800);
+                }
+
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1 align="center">Jogo da Memória</h1>
+        <p id="texto">
+            Clique abaixo para sortear!
+        </p>
+        <button id="btstart" onclick="preencheTable()">
+            Sortear
+        </button>
+        <br>
+        <table id="maintable"></table>
+    </div>
+</body>
+</html>

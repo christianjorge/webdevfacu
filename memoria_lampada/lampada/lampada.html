@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+function lampada(){
+    var lamp = document.getElementById('imagem');
+    if(lamp.getAttribute("src") == "acesa.jpg"){
+        lamp.src = "quebrada.jpg";
+    }else if(lamp.getAttribute("src") == "apagada.jpg"){
+        lamp.src = "acesa.jpg";
+    }else{
+        lamp.src = "apagada.jpg";
+    }
+}
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Lâmpada</title>
+</head>
+<body>
+<!--Inserir as imagens na mesma pasta do html-->
+<button onclick="lampada()"><img id="imagem" src="apagada.jpg"></button>
+</body>
+</html>
