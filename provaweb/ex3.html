@@ -1,0 +1,29 @@
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <h1 id='texto' style="display: none; margin:auto; color: whitesmoke;">
+        Bem Vindo a Prova de PPI! <br>
+        <h4><a href="ex4.html" style="text-transform: none;color: white;"> Ver Ex 4:</a></h4>
+    </h1>
+</body>
+
+<script>
+    var cor = 'Black';
+   function ChooseCor(){
+        cor = prompt("Escolha uma cor entre Azul, Verde ou Vermelho: ");
+        
+        if(cor == 'Azul'){
+            document.body.style.background = '#0000FF';
+        } else if(cor == 'Verde'){
+            document.body.style.background = '#00FF00';
+        } else if(cor == 'Vermelho') {
+            document.body.style.background = '#FF0000';
+        } else {
+            ChooseCor();
+        }
+        document.getElementById('texto').style.display = 'inline';
+   }
+   ChooseCor();
+
+</script>

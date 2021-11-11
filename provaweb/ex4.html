@@ -1,0 +1,36 @@
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function back(){
+            if(document.body.style.background == 'rgb(255, 0, 0)'){
+                document.body.style.background = 'white';
+            } else {
+                document.body.style.background = '#FF0000';
+            };
+        }
+    </script>
+</head>
+<body>
+    <div id="content">
+        <h4><a href="index.html" style="text-transform: none;"> Voltar início </a></h4>
+        <table id='ex4table'>
+            <tr>
+                <td><img src='img/cafe.jpg' onclick="this.style.display = 'none';"></td>
+                <td><img src='img/cracha.jpg' onclick="this.src = 'img/cafe.jpg';"></td>
+            </tr>
+            <tr>
+                <td id='lista'>
+                    <img src='img/lista.jpg' onclick="this.style.display = 'none';document.getElementById('lista').innerHTML='Christian Jorge';"></td>
+                <td><img src='img/mala.jpg' onclick="alert('Clicou na Mala!')"></td>
+            </tr>
+            <tr>
+                <td><img src='img/oculos.jpg' onclick="back();"></td>
+                <td><img src='img/tv.jpg' onclick="this.style.display = 'none';document.getElementById('divOculta').style.display = 'inline';"></td>
+            </tr>
+        </table>
+        <div id='divOculta'>
+            <img src='img/tv.jpg'>
+        </div>
+    </div>
+</body>
