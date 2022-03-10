@@ -5,7 +5,7 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
     host:'localhost',
     user:'root',
-    password:'root',
+    password:'',
     database:'northwind',
     multipleStatements:true
 });
@@ -24,10 +24,10 @@ router.get('/viewlogins', function(req, res, next) {
 /* CREATE */
 router.post('/login', function(req,res){
     //Declara e recebe variáveis
-    var login = req.body.login.substring(0,45)
-    var senha = req.body.senha.substring(0,8)
-    var nome = req.body.nome.substring(0,45)
-    var sobrenome = req.body.sobrenome.substring(0,45)
+    var login = req.body.login.substring(0,99)
+    var senha = req.body.senha.substring(0,99)
+    var nome = req.body.nome.substring(0,99)
+    var sobrenome = req.body.sobrenome.substring(0,99)
 
     connection.query('INSERT INTO login (login, senha, nome, sobrenome) values (?,?,?,?)', [login,senha,nome,sobrenome], 
     (results, error) => {
@@ -41,12 +41,12 @@ router.post('/login', function(req,res){
 router.patch('/login/:id', function(req,res){
     //Declara e recebe variáveis
     var idlogin = parseInt(req.params.id)
-    var login = req.body.login.substring(0,45)
-    var senha = req.body.senha.substring(0,8)
-    var nome = req.body.nome.substring(0,45)
-    var sobrenome = req.body.sobrenome.substring(0,45)
+    var login = req.body.login.substring(0,99)
+    var senha = req.body.senha.substring(0,99)
+    var nome = req.body.nome.substring(0,99)
+    var sobrenome = req.body.sobrenome.substring(0,99)
 
-    connection.query('UPDATE login SET login=?, senha=?, nome=?, sobrenome=? WHERE id=?', [login,senha,nome,sobrenome,idlogin], 
+    connection.query('UPDATE login SET login=?, senha=?, nome=?, sobrenome=? WHERE idlogin=?', [login,senha,nome,sobrenome,idlogin], 
     (results, error) => {
         if(error) res.send(error);
             else res.send(results)
@@ -60,7 +60,7 @@ router.delete('/login/:id', function(req,res){
     //Declara e recebe variáveis
     var idlogin = parseInt(req.params.id)
 
-    connection.query('DELETE FROM login WHERE id=?', [idlogin], 
+    connection.query('DELETE FROM login WHERE idlogin=?', [idlogin], 
     (results, error) => {
         if(error) res.send(error);
             else res.send(results)
